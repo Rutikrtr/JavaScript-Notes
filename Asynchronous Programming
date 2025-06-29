@@ -1,0 +1,164 @@
+═══════════════════════════════════════════════════════════
+            JAVASCRIPT ASYNCHRONOUS PROGRAMMING NOTES
+═══════════════════════════════════════════════════════════
+
+1️⃣  Synchronous vs. Asynchronous Code
+─────────────────────────────────────
+✅ Synchronous Code
+• Executes line by line.
+• Each line must finish before the next starts.
+
+Example:
+---------------------------------------------------
+console.log("Step 1");
+console.log("Step 2");
+console.log("Step 3");
+---------------------------------------------------
+Output:
+Step 1
+Step 2
+Step 3
+
+✅ Asynchronous Code
+• Starts an operation (like setTimeout) and continues running.
+
+Example:
+---------------------------------------------------
+console.log("Step 1");
+setTimeout(() => {
+  console.log("Step 2");
+}, 2000);
+console.log("Step 3");
+---------------------------------------------------
+Output:
+Step 1
+Step 3
+Step 2 (after 2 sec)
+
+─────────────────────────────────────────────────────
+
+2️⃣  Event Loop
+─────────────────────────────────────
+🔹 What is it?
+A mechanism that manages asynchronous tasks.
+
+🔹 How it works:
+1. Runs all synchronous code.
+2. Asynchronous callbacks wait in the Task Queue.
+3. When the Call Stack is empty, the Event Loop runs queued tasks.
+
+Use Cases:
+✓ UI updates
+✓ Network requests
+✓ Timers
+
+─────────────────────────────────────────────────────
+
+3️⃣  Callbacks
+─────────────────────────────────────
+✅ What is a Callback?
+A function passed as an argument to be called later.
+
+Example:
+---------------------------------------------------
+function fetchData(callback) {
+  setTimeout(() => {
+    callback("Data loaded!");
+  }, 1000);
+}
+
+fetchData((result) => {
+  console.log(result);
+});
+---------------------------------------------------
+
+─────────────────────────────────────────────────────
+
+4️⃣  Promises
+─────────────────────────────────────
+✅ What is a Promise?
+An object representing the eventual result of an async operation.
+
+States:
+• Pending
+• Fulfilled
+• Rejected
+
+Example:
+---------------------------------------------------
+const myPromise = new Promise((resolve, reject) => {
+  if (success) {
+    resolve("Success!");
+  } else {
+    reject("Error!");
+  }
+});
+
+myPromise
+  .then((value) => console.log(value))
+  .catch((error) => console.error(error));
+---------------------------------------------------
+
+─────────────────────────────────────────────────────
+
+5️⃣  Async/Await
+─────────────────────────────────────
+✅ What is Async/Await?
+• async declares an asynchronous function.
+• await pauses until the Promise resolves.
+
+Example:
+---------------------------------------------------
+async function runTask() {
+  try {
+    const result = await simulateAsyncTask();
+    console.log(result);
+  } catch (error) {
+    console.error(error);
+  }
+}
+---------------------------------------------------
+
+Benefits:
+✓ Cleaner, more readable code
+✓ Easier error handling
+
+─────────────────────────────────────────────────────
+
+6️⃣  Real-World Example – Fetch API
+─────────────────────────────────────
+✅ Using Promises:
+---------------------------------------------------
+fetch("https://api.example.com/data")
+  .then((response) => response.json())
+  .then((data) => console.log(data))
+  .catch((error) => console.error(error));
+---------------------------------------------------
+
+✅ Using Async/Await:
+---------------------------------------------------
+async function fetchData() {
+  try {
+    const response = await fetch("https://api.example.com/data");
+    const data = await response.json();
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+---------------------------------------------------
+
+─────────────────────────────────────────────────────
+
+7️⃣  Final Tips
+─────────────────────────────────────
+⭐ Practice:
+Write small examples to understand each concept.
+
+⭐ Visualize:
+Draw diagrams of the Event Loop and async flows.
+
+⭐ Error Handling:
+Always use .catch() or try...catch blocks.
+
+═════════════════════════════════════════════════════
